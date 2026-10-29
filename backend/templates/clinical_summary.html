@@ -1,0 +1,6 @@
+{% extends "_base.html" %}
+{% block accent %}#334e68{% endblock %}
+{% block kind %}{{ doc.type | replace("_", " ") | title }}{% endblock %}
+{% block after %}
+{% if doc.reviewStatus %}<p class="note">Review status: {{ doc.reviewStatus | replace("_", " ") | lower }}. Flags are automated reference-range checks, not a diagnosis.</p>{% endif %}
+{% endblock %}

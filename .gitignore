@@ -1,0 +1,28 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# backend
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+backend/.scheduler.lock
+backend/backups/
+
+# frontend
+node_modules/
+dist/
+*.tsbuildinfo
+frontend/test-results/
+frontend/playwright-report/
+
+# local analysis notes
+project-analysis/
+
+# archived old code (contains the old .env)
+legacy-nextjs-backup.zip

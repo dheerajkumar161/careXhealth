@@ -1,0 +1,9 @@
+{% extends "_base.html" %}
+{% block accent %}#b45309{% endblock %}
+{% block kind %}Nurse handoff{% endblock %}
+{% block before %}
+{% if data.status %}<p><b>Status at handoff:</b> {{ data.status }}</p>{% endif %}
+{% endblock %}
+{% block after %}
+<p class="note">Facts are compiled deterministically from the record; any narrative paragraph is AI-written over those facts only.</p>
+{% endblock %}

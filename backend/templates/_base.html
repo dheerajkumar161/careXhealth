@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.title }}</title>
+<style>
+  {% if font_path %}
+  @font-face { font-family: "CBSans"; src: url("{{ font_path }}"); }
+  {% endif %}
+  @page { size: a4 portrait; margin: 1.6cm 1.6cm 2cm 1.6cm;
+          @frame footer { -pdf-frame-content: page-footer; bottom: 0.8cm; margin-left: 1.6cm; margin-right: 1.6cm; height: 0.8cm; } }
+  body { font-family: {% if font_path %}"CBSans", {% endif %}Helvetica, sans-serif; font-size: 10pt; color: #1f2933; line-height: 1.45; }
+  .banner { border-bottom: 2px solid {% block accent %}#0f766e{% endblock %}; padding-bottom: 6px; margin-bottom: 10px; }
+  .brand { font-size: 9pt; color: #52606d; letter-spacing: 1px; text-transform: uppercase; }
+  .kind { font-size: 8pt; color: #ffffff; background-color: {{ self.accent() }}; padding: 2px 6px; }
+  .meta { width: 100%; font-size: 8.5pt; color: #52606d; margin-bottom: 8px; }
+  .meta td { padding: 1px 4px 1px 0; }
+  h1 { font-size: 16pt; margin: 4px 0 8px 0; color: #102a43; }
+  h2 { font-size: 12pt; margin: 14px 0 4px 0; color: {{ self.accent() }}; border-bottom: 0.5px solid #d9e2ec; padding-bottom: 2px; }
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 8px 0; }
+  th, td { border: 0.5px solid #cbd2d9; padding: 3px 5px; text-align: left; vertical-align: top; font-size: 9pt; }
+  th { background-color: #f0f4f8; }
+  blockquote { margin: 6px 0; padding: 4px 8px; background-color: #f0f4f8; border-left: 3px solid {{ self.accent() }}; color: #334e68; }
+  .note { font-size: 8pt; color: #7b8794; margin-top: 14px; }
+  #page-footer { font-size: 7.5pt; color: #9aa5b1; }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <span class="brand">CareXHealth Hospital</span> &nbsp; <span class="kind">{% block kind %}Clinical document{% endblock %}</span>
+  </div>
+  <table class="meta"><tr>
+    <td><b>Patient:</b> {{ patient.user.name }}</td>
+    <td><b>MRN:</b> {{ patient.mrn }}</td>
+    <td><b>Treating doctor:</b> {{ patient.doctor.name }}</td>
+  </tr><tr>
+    <td colspan="2"><b>Diagnosis:</b> {{ patient.diagnosis }}{% if patient.procedure %} — {{ patient.procedure }}{% endif %}</td>
+    <td><b>Created:</b> {{ created }}</td>
+  </tr></table>
+
+  {% block before %}{% endblock %}
+  {{ body }}
+  {% block after %}{% endblock %}
+
+  <div id="page-footer">{{ doc.title }} · generated {{ generated }}{% if doc.engine %} · content engine: {{ doc.engine }}{% endif %} · page <pdf:pagenumber> of <pdf:pagecount></div>
+</body>
+</html>

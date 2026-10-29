@@ -1,0 +1,37 @@
+# docker compose up --build              → SQLite (volume), UI on http://localhost:8080
+# docker compose --profile postgres up   → also starts Postgres; set DATABASE_URL in .env (see DEPLOYMENT.md)
+services:
+  api:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////data/carexhealth.db}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
+    volumes:
+      - carexhealth-data:/data
+    restart: unless-stopped
+  web:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  postgres:
+    image: postgres:16-alpine
+    profiles: ["postgres"]
+    environment:
+      POSTGRES_USER: carexhealth
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: carexhealth
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U carexhealth"]
+      interval: 10s
+      retries: 5
+volumes:
+  carexhealth-data:
+  pgdata:

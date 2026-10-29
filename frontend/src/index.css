@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --font-inter: "Inter";
+  --font-jakarta: "Plus Jakarta Sans";
+}
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+
+  --color-ink-900: #0f1b2d;
+  --color-ink-700: #334155;
+  --color-ink-500: #64748b;
+  --color-ink-400: #94a3b8;
+  --color-line: #e6eaf0;
+  --color-canvas: #f6f8fb;
+
+  --shadow-card: 0 1px 2px rgba(15, 27, 45, 0.04), 0 4px 16px -4px rgba(15, 27, 45, 0.06);
+  --shadow-lift: 0 2px 4px rgba(15, 27, 45, 0.04), 0 16px 40px -12px rgba(15, 27, 45, 0.16);
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 1.8s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink-900);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Grid items default to min-width:auto, which lets long content push cards past the viewport on phones */
+.grid > * {
+  min-width: 0;
+}
+
+::selection {
+  background: var(--color-brand-100);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cfd8e3 transparent;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #eef2f6 0px, #f7f9fb 120px, #eef2f6 240px);
+  background-size: 800px 100%;
+  animation: var(--animate-shimmer);
+  border-radius: 0.5rem;
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, #d9e2ec 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Rendered clinical documents */
+.prose-doc { color: var(--color-ink-700); font-size: 0.9rem; line-height: 1.65; }
+.prose-doc h1 { font-size: 1.35rem; font-weight: 700; color: var(--color-ink-900); margin: 0 0 0.75rem; }
+.prose-doc h2 { font-size: 1.02rem; font-weight: 700; color: var(--color-ink-900); margin: 1.4rem 0 0.5rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--color-line); }
+.prose-doc h3 { font-size: 0.95rem; font-weight: 600; color: var(--color-ink-900); margin: 1rem 0 0.4rem; }
+.prose-doc p { margin: 0.45rem 0; }
+.prose-doc ul { list-style: disc; padding-left: 1.25rem; margin: 0.4rem 0; }
+.prose-doc ol { list-style: decimal; padding-left: 1.25rem; margin: 0.4rem 0; }
+.prose-doc li { margin: 0.2rem 0; }
+.prose-doc strong { color: var(--color-ink-900); font-weight: 600; }
+.prose-doc em { color: var(--color-ink-500); }
+.prose-doc table { width: 100%; border-collapse: collapse; margin: 0.6rem 0; font-size: 0.85rem; }
+.prose-doc th, .prose-doc td { border: 1px solid var(--color-line); padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+.prose-doc th { background: #f8fafc; font-weight: 600; color: var(--color-ink-900); }
+.prose-doc thead th:empty { display: none; }
+.prose-doc blockquote { border-left: 3px solid var(--color-brand-400); background: var(--color-brand-50); padding: 0.6rem 0.9rem; margin: 0.75rem 0; border-radius: 0 0.5rem 0.5rem 0; color: var(--color-brand-900); }
+.prose-doc hr { border: 0; border-top: 1px solid var(--color-line); margin: 1.2rem 0; }
+.prose-doc code { background: #f1f5f9; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-size: 0.8rem; }

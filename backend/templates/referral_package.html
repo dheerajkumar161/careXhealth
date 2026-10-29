@@ -1,0 +1,7 @@
+{% extends "_base.html" %}
+{% block accent %}#4338ca{% endblock %}
+{% block kind %}Referral package{% endblock %}
+{% block after %}
+{% if data.attachments %}<p class="note">{{ data.attachments | length }} original report(s) attached in the CareXHealth record.</p>{% endif %}
+<p class="note">Confidential — shared with the receiving clinician for the purpose of this referral only.</p>
+{% endblock %}
